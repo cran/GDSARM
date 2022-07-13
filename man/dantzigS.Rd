@@ -33,7 +33,7 @@ of \code{beta}), (d) \code{delta}
 \description{
 The Dantzig selector (DS) finds a solution for the model parameters
 of a linear model, \code{beta} using linear programming. For a given \code{delta},
-DS minimizes the l1-norm (sum of absolute values) of \code{beta} subject to the constraint
-that \code{max(t(X)(y-X * beta))}<= \code{delta}.
+DS minimizes the L_1-norm (sum of absolute values) of \code{beta} subject to the constraint
+that \code{max(|t(X)(y-X * beta)|)}<= \code{delta}.
 }
 \keyword{internal}

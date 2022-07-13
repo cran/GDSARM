@@ -2,9 +2,9 @@
 #'
 #' A cast fatigue experiment with 12 runs and 7 factors was originally studied
 #' by Hunter et al. (1982), and was later revisited by Hamada and Wu (1992) 
-#' and Phoa et al.(2009), among others. It is widely accepted for these data that 
-#' V6 (F) and interaction of V6:V7 (FG) are active effects, with interaction of 
-#' V1:V5 (AE) possibly being active as well.
+#' and Phoa et al. (2009), among others. It is widely accepted for these data that 
+#' V6 (F) and interaction V6:V7 (F:G) are active effects, with interaction of 
+#' V1:V5 (A:E) possibly being active as well.
 #' 
 #' 
 #' @docType data

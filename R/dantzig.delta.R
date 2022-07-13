@@ -2,15 +2,15 @@
 #'
 #' @description The Dantzig selector (DS) finds a solution for the model parameters
 #' of a linear model, \code{beta} using linear programming. For a given \code{delta},
-#' DS minimizes the l1-norm (sum of absolute values) of \code{beta} subject to the constraint
-#' that \code{max(t(X)(y-X * beta)) <= delta}.
+#' DS minimizes the L_1-norm (sum of absolute values) of \code{beta} subject to the constraint
+#' that \code{max(|t(X)(y-X * beta)|) <= delta}.
 #'
 #' @param X a design matrix.
 #'
 #' @param y a vector of  responses.
 #'
-#' @param delta the specific value of \code{delta} for which the DS
-#' optimization needs to be solved
+#' @param delta a vector with the values of \code{delta} for which the DS
+#' optimization needs to be solved.
 #'
 #' @param plot a boolean value of either TRUE or FALSE with TRUE
 #' indicating that the profile plot should be drawn.
@@ -30,12 +30,12 @@
 #' @examples
 #' data(dataHamadaWu)
 #' X = dataHamadaWu[,-8]
-#' Y= dataHamadaWu[,8]
+#' Y = dataHamadaWu[,8]
 #' #scale and center X and y
 #' scaleX = base::scale(X, center= TRUE, scale = TRUE)
 #' scaleY = base::scale(Y, center= TRUE, scale = FALSE)
-#' maxDelta = max(t(scaleX)%*%matrix(scaleY, ncol=1))
-#' # Dantzig Selector on 4 delta values equi spaced between 0 and maxDelta
+#' maxDelta = max(abs(t(scaleX)%*%matrix(scaleY, ncol=1)))
+#' # Dantzig Selector on 4 equally spaced delta values between 0 and maxDelta
 #' dantzig.delta(scaleX, scaleY, delta = seq(0,maxDelta,length.out=4)) 
 #'
 #' @export

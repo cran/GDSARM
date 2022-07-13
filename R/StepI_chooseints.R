@@ -1,7 +1,7 @@
 #' Step I: Multiple GDS runs with random interactions
 #'
-#' @description Runs Gauss Dantzig Selector (GDS) multiple times, each time 
-#' with a differently set of randomly selected two-factor interactions.
+#' @description Runs the Gauss Dantzig Selector (GDS) multiple times, each time 
+#' with a different set of randomly selected two-factor interactions.
 #' All \code{m} main effects are included in each GDS run. For each set of
 #' randomly selected interactions, the best GDS output is chosen among 
 #' \code{delta.n} values of \code{delta}. We use kmeans with 2 
@@ -9,8 +9,8 @@
 #'
 #'
 #' @param delta.n a positive integer suggesting the number of delta values
-#' to be tried. \code{delta.n} values of \code{delta} will be used 
-#' strictly between 0 and \code{max(t(X)y)}. The default value is set to 10.
+#' to be tried. \code{delta.n} equally spaced values of \code{delta} will be used 
+#' strictly between 0 and \code{max(|t(X)y|)}. The default value is set to 10.
 #' 
 #' @param nint a positive integer representing the number of randomly 
 #' chosen interactions. The suggested value to use is the ceiling of 20% 

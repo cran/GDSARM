@@ -1,20 +1,18 @@
 #' Gauss-Dantzig Selector
 #'
-#' @description This function runs Gauss-Dantzig Selector on the given columns. 
+#' @description This function runs the Gauss-Dantzig selector on the given columns. 
 #' We have two options: either (a) GDS(m) on the \code{m} main 
-#' effects, and (b) GDS(m+2fi) on the \code{m} main effects plus two-factor interactions. 
-#' For a given \code{delta}, DS minimizes the l1-norm (sum of absolute values)
-#' of \code{beta} subject to the constraint that \code{max(t(X)(y-X * beta))} <= \code{delta}.
-#' GDS is run for multiple values of \code{delta}. We use kmeans with 2 
-#' clusters and BIC to select a best model  for all the \code{delta} values.
+#' effects, and (b) GDS(m+2fi) on the \code{m} main effects and the corresponding two-factor interactions. 
+#' For a given \code{delta}, DS minimizes the L_1-norm (sum of absolute values)
+#' of \code{beta} subject to the constraint that \code{max(|t(X)(y-X * beta)|)} <= \code{delta}.
+#' The GDS is run for multiple values of \code{delta}. We use kmeans and BIC to select a best model.
 #' 
-#' @param delta.n a positive integer suggesting the number of deltas
-#' to be tried. \code{delta.n} values of \code{delta} will be used 
-#' strictly between 0 and \code{max(t(X)y)}. The default value is
-#' set to 10.
+#' @param delta.n a positive integer suggesting the number of delta values
+#' to be tried. \code{delta.n} equally spaced values of \code{delta} will be used 
+#' strictly between 0 and \code{max(|t(X)y|)}. The default value is set to 10.
 #' 
-#' @param design a \eqn{n \times m}{n x m} matrix of \code{m} two-level main effects. 
-#' The columns should have the high-level coded as +1 and the low-level codes as -1.
+#' @param design a \eqn{n \times m}{n x m} matrix of \code{m} two-level factors. 
+#' The levels should be coded as +1 and -1.
 #' 
 #' @param Y a vector of \code{n} responses.
 #' 
@@ -23,8 +21,8 @@
 #' all main effects plus all 2 factor interaction columns (`main2fi`). 
 #' The default value is `main2fi`.
 #' 
-#' @return A list returning the effects identified as active as well as the
-#' corresponding identified important factors.
+#' @return A list returning the selected effects as well as the
+#' corresponding important factors.
 #' 
 #' @source Cand{\`e}s, E. and Tao, T. (2007). The Dantzig selector: Statistical estimation when p is much
 #' larger than n. Annals of Statistics 35 (6), 2313--2351.
@@ -32,7 +30,7 @@
 #' @source Dopico-Garc{\' i}a, M.S., Valentao, P., Guerra, L., Andrade, P. B., and Seabra, R. M. (2007).
 #' Experimental design for extraction and quantification of phenolic 
 #' compounds and organic acids in white "Vinho Verde" grapes 
-#' Analytica chimica acta, 583(1): 15--22.
+#' Analytica Chimica Acta, 583(1): 15--22.
 #' 
 #' @source Hamada, M. and Wu, C. F. J. (1992). Analysis of designed experiments 
 #' with complex aliasing. Journal of Quality Technology 24 (3), 130--137.
@@ -52,22 +50,22 @@
 #' @examples
 #' data(dataHamadaWu)
 #' X = dataHamadaWu[,-8]
-#' Y= dataHamadaWu[,8]
-#' delta.n=10
+#' Y = dataHamadaWu[,8]
+#' delta.n = 10
 #' # GDS on main effects 
-#' GDS_givencols(delta.n,design = X, Y=Y, which.cols = "main")
+#' GDS_givencols(delta.n, design = X, Y=Y, which.cols = "main")
 #' 
 #' # GDS on main effects and two-factor interactions
-#' GDS_givencols(delta.n,design = X, Y=Y)
+#' GDS_givencols(delta.n, design = X, Y=Y)
 #' 
 #' data(dataCompoundExt)
 #' X = dataCompoundExt[,-9]
-#' Y= dataCompoundExt[,9]
-#' delta.n=10
+#' Y = dataCompoundExt[,9]
+#' delta.n = 10
 #' # GDS on main effects
-#' GDS_givencols(delta.n,design = X, Y=Y, which.cols = "main")
+#' GDS_givencols(delta.n, design = X, Y=Y, which.cols = "main")
 #' # GDS on main effects and two-factor interactions
-#' GDS_givencols(delta.n,design = X, Y=Y, which.cols = "main2fi")
+#' GDS_givencols(delta.n, design = X, Y=Y, which.cols = "main2fi")
 #' @export
 #'
 

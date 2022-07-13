@@ -21,18 +21,18 @@
 #' 
 #' @param Y a vector of \code{n} responses.
 #' 
-#' @param cri.penter the p-value cutoff for an effect to enter into the 
+#' @param cri.penter the p-value cutoff for the most significant effect to enter into the 
 #' stepwise regression model
 #' 
-#' @param cri.premove the p-value cutoff for an effect to exit from the 
+#' @param cri.premove the p-value cutoff for the least significant effect to exit from the 
 #' stepwise regression model
 #'
 #' @param opt.heredity a string with either `none`, or `weak`, or `strong`. Denotes
 #' whether the effect-heredity (weak or strong) should be embedded in GDS-ARM. 
 #' The default value is `none` as suggested in Singh and Stufken (2022).
 #' 
-#' @return A list returning the effects identified as active as well as the
-#' corresponding identified important factors.
+#' @return A list returning the selected effects as well as the
+#' corresponding important factors.
 #'
 #' @source Singh, R. and Stufken, J. (2022). Factor selection in screening experiments
 #' by aggregation over random models, 1--31. \doi{10.48550/arXiv.2205.13497}

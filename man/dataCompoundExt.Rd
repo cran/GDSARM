@@ -22,7 +22,7 @@ A data frame with 12 rows and 9 columns:
 Dopico-Garc{\' i}a, M.S., Valentao, P., Guerra, L., Andrade, P. B., and Seabra, R. M. (2007).
 Experimental design for extraction and quantification of phenolic
 compounds and organic acids in white "Vinho Verde" grapes
-Analytica chimica acta, 583(1): 15--22.
+Analytica Chimica Acta, 583(1): 15--22.
 
 Phoa, F. K., Wong, W. K., and Xu, H (2009b). The need of
 considering the interactions in the analysis of screening designs.
@@ -39,7 +39,7 @@ for the grapes. This example has been further studied in Phoa et al. (2009b)
 for one phenolic compound, kaempferol-3-Orutinoside + isorhamnetin-3-O glucoside,
 which is also what we studied. It is accepted for these data
 that fitting a main-effects model suggests that V3 (Factor C), V4 (Factor D),
-and inteaction of V1:V4 (A:D) are active effects.
+and interaction V1:V4 (A:D) are active effects.
 }
 \examples{
 data(dataCompoundExt)

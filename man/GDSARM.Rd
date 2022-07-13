@@ -10,7 +10,7 @@ larger than n. Annals of Statistics 35 (6), 2313--2351.
 Dopico-Garc{\' i}a, M.S., Valentao, P., Guerra, L., Andrade, P. B., and Seabra, R. M. (2007).
 Experimental design for extraction and quantification of phenolic
 compounds and organic acids in white "Vinho Verde" grapes
-Analytica chimica acta, 583(1): 15--22.
+Analytica Chimica Acta, 583(1): 15--22.
 
 Hamada, M. and Wu, C. F. J. (1992). Analysis of designed experiments
 with complex aliasing. Journal of Quality Technology 24 (3), 130--137.
@@ -42,8 +42,8 @@ GDSARM(
 }
 \arguments{
 \item{delta.n}{a positive integer suggesting the number of delta values
-to be tried. \code{delta.n} values of \code{delta} will be used
-strictly between 0 and \code{max(t(X)y)}. The default value is set to 10.}
+to be tried. \code{delta.n} equally spaced values of \code{delta} will be used
+strictly between 0 and \code{max(|t(X)y|)}. The default value is set to 10.}
 
 \item{nint}{a positive integer representing the number of randomly
 chosen interactions. The suggested value to use is the ceiling of 20\%
@@ -55,20 +55,20 @@ be run. The suggested value is \code{(m choose 2)}.}
 
 \item{ntop}{a positive integer representing the number of top models
 to be selected among the \code{nrep} models. The suggested value is
-\code{max(20, (nrep x nint)/(m(m-1))}.}
+\code{max(20, (nrep x nint)/(m(m-1))}. The value of \code{ntop} should not exceed \code{nrep}.}
 
 \item{pkeep}{a number between 0 and 1 representing the proportion of \code{ntop}
-models in which an effect needs to appear in order to be declared active.}
+models in which an effect needs to appear in order to be selected for the stepwise regression stage.}
 
-\item{design}{a \eqn{n \times m}{n x m} matrix of \code{m} two-level main effects.
-The columns should have the high-level coded as +1 and the low-level codes as -1.}
+\item{design}{a \eqn{n \times m}{n x m} matrix of \code{m} two-level factors.
+The levels should be coded as +1 and -1.}
 
 \item{Y}{a vector of \code{n} responses.}
 
-\item{cri.penter}{the p-value cutoff for an effect to enter into the
+\item{cri.penter}{the p-value cutoff for the most significant effect to enter into the
 stepwise regression model. The suggested value is 0.01.}
 
-\item{cri.premove}{the p-value cutoff for an effect to exit from the
+\item{cri.premove}{the p-value cutoff for the least significant effect to exit from the
 stepwise regression model. The suggested value is 0.05.}
 
 \item{opt.heredity}{a string with either \code{none}, or \code{weak}, or \code{strong}. Denotes
@@ -79,18 +79,18 @@ The default value is \code{none} as suggested in Singh and Stufken (2022).}
 selected. The default value is seed to 1234.}
 }
 \value{
-A list returning the effects identified as active as well as the
-corresponding identified important factors.
+A list returning the selected effects as well as the
+corresponding important factors.
 }
 \description{
 The GDS-ARM procedure consists of three steps. First, it runs
-runs Gauss Dantzig Selector (GDS) \code{nrep} times, each time
+the Gauss Dantzig Selector (GDS) \code{nrep} times, each time
 with a different set of \code{nint} randomly selected two-factor interactions.
 All \code{m} main effects are included in each GDS run. Second, the best
-\code{ntop} models are identified with the smallest BIC. The effects that are
-declared as active effects in at least \code{pkeep x ntop} of the \code{ntop}
-models are then passed on to the third stage. In the third stage, these effects are
-passed through the stepwise regression model. With
+\code{ntop} models are identified with the smallest BIC. Effects that
+appear in at least \code{pkeep x ntop} of the \code{ntop}
+models are then passed on to the third stage. In the third stage, stepwise
+regression is used. With
 \code{n} being the number of runs, the stepwise regression starts
 with at most \code{n-3} selected effects from the previous step. The
 remaining effects from the previous step as well as all main effects are
@@ -105,8 +105,8 @@ after the stepwise stage of GDS-ARM.
 \examples{
 data(dataHamadaWu)
 X = dataHamadaWu[,-8]
-Y= dataHamadaWu[,8]
-delta.n=10
+Y = dataHamadaWu[,8]
+delta.n = 10
 n = dim(X)[1]
 m = dim(X)[2]
 nint = ceiling(0.2*choose(m,2))
@@ -117,17 +117,17 @@ cri.penter = 0.01
 cri.premove = 0.05
 design = X
 # GDS-ARM with default values
-GDSARM(delta.n,nint, nrep, ntop,pkeep, X, Y,cri.penter, cri.premove)
+GDSARM(delta.n, nint, nrep, ntop, pkeep, X, Y, cri.penter, cri.premove)
 
 # GDS-ARM with default values but with weak heredity
 opt.heredity="weak" 
-GDSARM(delta.n,nint, nrep, ntop,pkeep, X,Y,cri.penter, cri.premove,opt.heredity)
+GDSARM(delta.n, nint, nrep, ntop, pkeep, X, Y, cri.penter, cri.premove, opt.heredity)
 
 
 data(dataCompoundExt)
 X = dataCompoundExt[,-9]
-Y= dataCompoundExt[,9]
-delta.n=10
+Y = dataCompoundExt[,9]
+delta.n = 10
 n = dim(X)[1]
 m = dim(X)[2]
 nint = ceiling(0.2*choose(m,2))
@@ -138,11 +138,11 @@ cri.penter = 0.01
 cri.premove = 0.05
 design = X
 # GDS-ARM on compound extraction
-GDSARM(delta.n,nint, nrep, ntop,pkeep, X,Y,cri.penter, cri.premove)
+GDSARM(delta.n, nint, nrep, ntop, pkeep, X, Y, cri.penter, cri.premove)
 
 # GDS-ARM on compound extraction with strong heredity
-opt.heredity="strong"
-GDSARM(delta.n,nint, nrep, ntop,pkeep, X,Y,cri.penter, cri.premove,opt.heredity)
+opt.heredity = "strong"
+GDSARM(delta.n, nint, nrep, ntop, pkeep, X, Y, cri.penter, cri.premove, opt.heredity)
 
 
 }
